@@ -17,7 +17,7 @@ const AddPost = () => {
         <div className="flex gap-4">
           <textarea
             placeholder="What's on your mind?"
-            className="bg-slate-100 rounded-lg flex-1 p-2"
+            className="bg-slate-100 rounded-md flex-1 px-4 py-2 outline-none"
           ></textarea>
           <Image
             src="/emoji.png"

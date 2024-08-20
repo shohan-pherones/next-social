@@ -15,7 +15,10 @@ const Navbar = () => {
     <div className="h-24 flex items-center justify-between">
       {/* LEFT */}
       <div className="md:hidden lg:block w-[20%]">
-        <Link href="/" className="font-bold text-xl text-blue-600 uppercase">
+        <Link
+          href="/"
+          className="font-bold text-xl text-blue-600 uppercase whitespace-nowrap"
+        >
           Next Social
         </Link>
       </div>
@@ -54,7 +57,7 @@ const Navbar = () => {
             <span>Stories</span>
           </Link>
         </div>
-        <div className="hidden xl:flex p-2 bg-slate-100 items-center rounded-xl">
+        <div className="hidden xl:flex p-2 bg-slate-100 items-center rounded-md">
           <input
             type="text"
             placeholder="Search..."
@@ -70,10 +73,10 @@ const Navbar = () => {
         </ClerkLoading>
         <ClerkLoaded>
           <SignedIn>
-            <div className="cursor-pointer">
+            <div className="cursor-pointer hidden md:block">
               <Image src="/people.png" alt="People" width={24} height={24} />
             </div>
-            <div className="cursor-pointer">
+            <div className="cursor-pointer hidden md:block">
               <Image
                 src="/messages.png"
                 alt="Messages"
@@ -81,7 +84,7 @@ const Navbar = () => {
                 height={20}
               />
             </div>
-            <div className="cursor-pointer">
+            <div className="cursor-pointer hidden md:block">
               <Image
                 src="/notifications.png"
                 alt="Notifications"
