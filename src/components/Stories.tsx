@@ -9,7 +9,7 @@ const Stories = () => {
           <Image
             src="https://images.pexels.com/photos/27663337/pexels-photo-27663337/free-photo-of-a-woman-in-a-pink-dress-walking-on-the-beach.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
             alt=""
-            className="w-20 h-20 rounded-full ring-2 object-cover"
+            className="w-20 h-20 rounded-full border-4 border-blue-400 object-cover"
             width={80}
             height={80}
           />
@@ -20,7 +20,7 @@ const Stories = () => {
           <Image
             src="https://images.pexels.com/photos/27663337/pexels-photo-27663337/free-photo-of-a-woman-in-a-pink-dress-walking-on-the-beach.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
             alt=""
-            className="w-20 h-20 rounded-full ring-2 object-cover"
+            className="w-20 h-20 rounded-full border-4 border-blue-400 object-cover"
             width={80}
             height={80}
           />
@@ -31,7 +31,7 @@ const Stories = () => {
           <Image
             src="https://images.pexels.com/photos/27663337/pexels-photo-27663337/free-photo-of-a-woman-in-a-pink-dress-walking-on-the-beach.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
             alt=""
-            className="w-20 h-20 rounded-full ring-2 object-cover"
+            className="w-20 h-20 rounded-full border-4 border-blue-400 object-cover"
             width={80}
             height={80}
           />
@@ -42,7 +42,7 @@ const Stories = () => {
           <Image
             src="https://images.pexels.com/photos/27663337/pexels-photo-27663337/free-photo-of-a-woman-in-a-pink-dress-walking-on-the-beach.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
             alt=""
-            className="w-20 h-20 rounded-full ring-2 object-cover"
+            className="w-20 h-20 rounded-full border-4 border-blue-400 object-cover"
             width={80}
             height={80}
           />
@@ -53,7 +53,7 @@ const Stories = () => {
           <Image
             src="https://images.pexels.com/photos/27663337/pexels-photo-27663337/free-photo-of-a-woman-in-a-pink-dress-walking-on-the-beach.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
             alt=""
-            className="w-20 h-20 rounded-full ring-2 object-cover"
+            className="w-20 h-20 rounded-full border-4 border-blue-400 object-cover"
             width={80}
             height={80}
           />
@@ -64,7 +64,7 @@ const Stories = () => {
           <Image
             src="https://images.pexels.com/photos/27663337/pexels-photo-27663337/free-photo-of-a-woman-in-a-pink-dress-walking-on-the-beach.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
             alt=""
-            className="w-20 h-20 rounded-full ring-2 object-cover"
+            className="w-20 h-20 rounded-full border-4 border-blue-400 object-cover"
             width={80}
             height={80}
           />
@@ -75,7 +75,7 @@ const Stories = () => {
           <Image
             src="https://images.pexels.com/photos/27663337/pexels-photo-27663337/free-photo-of-a-woman-in-a-pink-dress-walking-on-the-beach.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
             alt=""
-            className="w-20 h-20 rounded-full ring-2 object-cover"
+            className="w-20 h-20 rounded-full border-4 border-blue-400 object-cover"
             width={80}
             height={80}
           />
@@ -86,7 +86,7 @@ const Stories = () => {
           <Image
             src="https://images.pexels.com/photos/27663337/pexels-photo-27663337/free-photo-of-a-woman-in-a-pink-dress-walking-on-the-beach.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
             alt=""
-            className="w-20 h-20 rounded-full ring-2 object-cover"
+            className="w-20 h-20 rounded-full border-4 border-blue-400 object-cover"
             width={80}
             height={80}
           />
@@ -97,7 +97,7 @@ const Stories = () => {
           <Image
             src="https://images.pexels.com/photos/27663337/pexels-photo-27663337/free-photo-of-a-woman-in-a-pink-dress-walking-on-the-beach.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
             alt=""
-            className="w-20 h-20 rounded-full ring-2 object-cover"
+            className="w-20 h-20 rounded-full border-4 border-blue-400 object-cover"
             width={80}
             height={80}
           />
@@ -108,7 +108,7 @@ const Stories = () => {
           <Image
             src="https://images.pexels.com/photos/27663337/pexels-photo-27663337/free-photo-of-a-woman-in-a-pink-dress-walking-on-the-beach.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
             alt=""
-            className="w-20 h-20 rounded-full ring-2 object-cover"
+            className="w-20 h-20 rounded-full border-4 border-blue-400 object-cover"
             width={80}
             height={80}
           />
