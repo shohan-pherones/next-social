@@ -7,7 +7,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Modern Social Media App",
+  title: "Next Social",
   description: "Social media app built with Next.js",
 };
 

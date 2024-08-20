@@ -26,12 +26,12 @@ const Navbar = () => {
           <Link href="/" className="flex gap-2 items-center">
             <Image
               src="/home.png"
-              alt="Homepage"
+              alt="Home"
               width={16}
               height={16}
               className="w-4 h-4"
             />
-            <span>Homepage</span>
+            <span>Home</span>
           </Link>
           <Link href="/" className="flex gap-2 items-center">
             <Image
