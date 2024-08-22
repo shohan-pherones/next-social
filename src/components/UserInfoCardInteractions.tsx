@@ -1,6 +1,6 @@
 "use client";
 
-import { triggerFollow } from "@/lib/actions";
+import { triggerBlock, triggerFollow } from "@/lib/actions";
 import { useOptimistic, useState } from "react";
 
 interface Props {
@@ -25,7 +25,7 @@ const UserInfoCardInteractions = ({
   });
 
   const follow = async () => {
-    switchOptimisticFollow("");
+    switchOptimisticState("follow");
 
     try {
       await triggerFollow(userId);
@@ -40,30 +40,50 @@ const UserInfoCardInteractions = ({
     }
   };
 
-  const [optimisticFollow, switchOptimisticFollow] = useOptimistic(
+  const block = async () => {
+    switchOptimisticState("block");
+
+    try {
+      await triggerBlock(userId);
+      setUserState((prev) => ({
+        ...prev,
+        blocked: !prev.blocked,
+      }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const [optimisticState, switchOptimisticState] = useOptimistic(
     userState,
-    (state) => ({
-      ...state,
-      following: state.following && false,
-      friendRequestSent:
-        !state.following && !state.friendRequestSent ? true : false,
-    })
+    (state, value: "follow" | "block") =>
+      value === "follow"
+        ? {
+            ...state,
+            following: state.following && false,
+            friendRequestSent:
+              !state.following && !state.friendRequestSent ? true : false,
+          }
+        : {
+            ...state,
+            blocked: !state.blocked,
+          }
   );
 
   return (
     <>
       <form action={follow}>
         <button className="bg-blue-500 text-white text-sm rounded-md p-2 font-medium w-full">
-          {optimisticFollow.following
+          {optimisticState.following
             ? "Following"
-            : optimisticFollow.friendRequestSent
+            : optimisticState.friendRequestSent
             ? "Friend Request Sent"
             : "Add Friend"}
         </button>
       </form>
-      <form action="">
+      <form action={block}>
         <button className="bg-rose-50 text-rose-500 text-sm rounded-md p-2 font-medium w-full">
-          {optimisticFollow.blocked ? "Unblock" : "Block"}
+          {optimisticState.blocked ? "Unblock" : "Block"}
         </button>
       </form>
     </>
