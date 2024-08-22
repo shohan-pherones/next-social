@@ -1,9 +1,48 @@
 import Feed from "@/components/Feed";
 import LeftMenu from "@/components/LeftMenu";
 import RightMenu from "@/components/RightMenu";
+import prisma from "@/lib/client";
+import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
-const ProfilePage = () => {
+const ProfilePage = async ({ params }: { params: { username: string } }) => {
+  const user = await prisma.user.findFirst({
+    where: {
+      username: params.username,
+    },
+    include: {
+      _count: {
+        select: {
+          followers: true,
+          followings: true,
+          posts: true,
+        },
+      },
+    },
+  });
+
+  if (!user) return notFound();
+
+  const { userId: currentUserId } = auth();
+
+  let isBlocked;
+
+  if (currentUserId) {
+    const res = await prisma.block.findFirst({
+      where: {
+        blockerId: user.id,
+        blockedId: currentUserId,
+      },
+    });
+
+    if (res) isBlocked = true;
+  } else {
+    isBlocked = false;
+  }
+
+  if (isBlocked) return notFound();
+
   return (
     <div className="flex gap-6 pt-6">
       <div className="hidden xl:block w-[20%]">
@@ -14,33 +53,35 @@ const ProfilePage = () => {
           <div className="flex flex-col items-center justify-center">
             <div className="w-full h-64 relative">
               <Image
-                src="https://images.pexels.com/photos/27862760/pexels-photo-27862760/free-photo-of-a-man-sitting-on-the-ground-with-his-sneakers.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                alt=""
+                src={user.cover || "/noCover.png"}
+                alt="Cover"
                 fill
                 className="object-cover rounded-lg"
               />
               <Image
-                src="https://images.pexels.com/photos/27744211/pexels-photo-27744211/free-photo-of-model-in-white-shirt-posing-on-steps.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                alt=""
+                src={user.avatar || "/noAvatar.png"}
+                alt="Avatar"
                 width={128}
                 height={128}
                 className="object-cover w-32 aspect-square rounded-full absolute left-0 right-0 m-auto -bottom-16 ring-4 ring-white"
               />
             </div>
-            <h1 className="mt-20 mb-4 text-2xl font-medium">
-              Md. Shohanur Rahman
-            </h1>
+            <h2 className="mt-20 mb-4 text-2xl font-medium">
+              {user.name && user.surname
+                ? user.name + " " + user.surname
+                : user.username}
+            </h2>
             <div className="flex items-center justify-center gap-12 mb-4">
               <div className="flex flex-col items-center">
-                <span className="font-medium">100</span>
+                <span className="font-medium">{user._count.posts}</span>
                 <span className="text-sm">Posts</span>
               </div>
               <div className="flex flex-col items-center">
-                <span className="font-medium">1.8K</span>
+                <span className="font-medium">{user._count.followers}</span>
                 <span className="text-sm">Followers</span>
               </div>
               <div className="flex flex-col items-center">
-                <span className="font-medium">1.3K</span>
+                <span className="font-medium">{user._count.followings}</span>
                 <span className="text-sm">Following</span>
               </div>
             </div>
@@ -49,7 +90,7 @@ const ProfilePage = () => {
         </div>
       </div>
       <div className="hidden lg:block w-[30%]">
-        <RightMenu userId="test" />
+        <RightMenu user={user} />
       </div>
     </div>
   );
