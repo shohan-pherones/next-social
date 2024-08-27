@@ -5,14 +5,24 @@ import { User } from "@prisma/client";
 import { X } from "lucide-react";
 import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useActionState, useState } from "react";
+import UpdateButton from "./UpdateButton";
 
 const UpdateUser = ({ user }: { user: User }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [cover, setCover] = useState<any>(null);
 
+  const router = useRouter();
+
+  const [state, formAction] = useActionState(updateProfile, {
+    success: false,
+    error: false,
+  });
+
   const handleClose = () => {
     setOpen(false);
+    state.success && router.refresh();
   };
 
   return (
@@ -26,7 +36,9 @@ const UpdateUser = ({ user }: { user: User }) => {
       {open && (
         <div className="fixed w-screen h-screen top-0 left-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <form
-            action={(formData) => updateProfile(formData, cover?.secure_url)}
+            action={(formData) =>
+              formAction({ formData, cover: cover?.secure_url || "" })
+            }
             className="p-12 bg-white rounded-lg shadow flex flex-col gap-2 w-full md:w-1/2 xl:w-1/3 relative"
           >
             <h2 className="text-xl">Update Profile</h2>
@@ -47,7 +59,7 @@ const UpdateUser = ({ user }: { user: User }) => {
                     <label htmlFor="">Cover Photo</label>
                     <div className="flex items-center gap-2 cursor-pointer">
                       <Image
-                        src={user.cover || "noCover.png"}
+                        src={user.cover || "/noCover.png"}
                         alt="Cover"
                         width={48}
                         height={32}
@@ -148,9 +160,13 @@ const UpdateUser = ({ user }: { user: User }) => {
                 />
               </div>
             </div>
-            <button className="bg-blue-500 p-2 mt-4 rounded-md text-white">
-              Update
-            </button>
+            <UpdateButton />
+            {state.success && (
+              <span className="text-green-500">Profile has been updated!</span>
+            )}
+            {state.error && (
+              <span className="text-red-500">Something went wrong!</span>
+            )}
             <X
               onClick={handleClose}
               className="absolute right-3 top-3 cursor-pointer"

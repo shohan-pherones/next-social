@@ -152,12 +152,21 @@ export const rejectFriendRequest = async (userId: string) => {
   }
 };
 
-export const updateProfile = async (formData: FormData, cover: string) => {
+export const updateProfile = async (
+  prevState: { success: boolean; error: boolean },
+  payload: { formData: FormData; cover: string }
+) => {
+  const { formData, cover } = payload;
+
   const fields = Object.fromEntries(formData);
 
   const filteredFields = Object.fromEntries(
     Object.entries(fields).filter(([_, val]) => val !== "")
   );
+
+  if (cover !== "") {
+    filteredFields.cover = cover;
+  }
 
   const profileSchema = z.object({
     cover: z.string().optional(),
@@ -170,28 +179,30 @@ export const updateProfile = async (formData: FormData, cover: string) => {
     website: z.string().max(60).optional(),
   });
 
-  const validatedFields = profileSchema.safeParse({ cover, ...filteredFields });
+  const validatedFields = profileSchema.safeParse(filteredFields);
 
   if (!validatedFields.success) {
     console.log(validatedFields.error.flatten().fieldErrors);
-    return "err";
+    return { success: false, error: true };
   }
 
-  const { userId: currentUserId } = auth();
+  const { userId } = auth();
 
-  if (!currentUserId) {
-    throw new Error("Unauthorized");
+  if (!userId) {
+    return { success: false, error: true };
   }
 
   try {
     await prisma.user.update({
       where: {
-        id: currentUserId,
+        id: userId,
       },
       data: validatedFields.data,
     });
+
+    return { success: true, error: false };
   } catch (error) {
     console.log(error);
-    throw new Error("Something went wrong");
+    return { success: false, error: true };
   }
 };
