@@ -1,5 +1,6 @@
 "use client";
 
+import { updateProfile } from "@/lib/actions";
 import { User } from "@prisma/client";
 import { X } from "lucide-react";
 import Image from "next/image";
@@ -23,7 +24,7 @@ const UpdateUser = ({ user }: { user: User }) => {
       {open && (
         <div className="fixed w-screen h-screen top-0 left-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <form
-            action=""
+            action={updateProfile}
             className="p-12 bg-white rounded-lg shadow flex flex-col gap-2 w-full md:w-1/2 xl:w-1/3 relative"
           >
             <h2 className="text-xl">Update Profile</h2>
@@ -51,6 +52,7 @@ const UpdateUser = ({ user }: { user: User }) => {
                 </label>
                 <input
                   type="text"
+                  name="name"
                   placeholder={user.name || "John"}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
                 />
@@ -62,7 +64,8 @@ const UpdateUser = ({ user }: { user: User }) => {
                 </label>
                 <input
                   type="text"
-                  placeholder={user.name || "Doe"}
+                  name="surname"
+                  placeholder={user.surname || "Doe"}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
                 />
               </div>
@@ -73,7 +76,8 @@ const UpdateUser = ({ user }: { user: User }) => {
                 </label>
                 <input
                   type="text"
-                  placeholder={user.name || "Something about you..."}
+                  name="description"
+                  placeholder={user.description || "Something about you..."}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
                 />
               </div>
@@ -84,7 +88,8 @@ const UpdateUser = ({ user }: { user: User }) => {
                 </label>
                 <input
                   type="text"
-                  placeholder={user.name || "123, Main Street, NY"}
+                  name="city"
+                  placeholder={user.city || "123, Main Street, NY"}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
                 />
               </div>
@@ -95,7 +100,8 @@ const UpdateUser = ({ user }: { user: User }) => {
                 </label>
                 <input
                   type="text"
-                  placeholder={user.name || "MIT"}
+                  name="school"
+                  placeholder={user.school || "MIT"}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
                 />
               </div>
@@ -106,7 +112,8 @@ const UpdateUser = ({ user }: { user: User }) => {
                 </label>
                 <input
                   type="text"
-                  placeholder={user.name || "Google Inc."}
+                  name="work"
+                  placeholder={user.work || "Google Inc."}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
                 />
               </div>
@@ -117,7 +124,8 @@ const UpdateUser = ({ user }: { user: User }) => {
                 </label>
                 <input
                   type="text"
-                  placeholder={user.name || "example.com"}
+                  name="website"
+                  placeholder={user.website || "example.com"}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
                 />
               </div>
