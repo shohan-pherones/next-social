@@ -75,15 +75,24 @@ const PostInterations = ({ postId, likes, commentNumber }: Props) => {
           />
           <span className="text-gray-300">|</span>
           <span className="text-gray-500">
-            15<span className="hidden md:inline ml-2">Comments</span>
+            {commentNumber}
+            <span className="hidden md:inline ml-2">Comments</span>
           </span>
         </div>
       </div>
       {/* SHARE */}
-      <div className="flex items-center gap-4 bg-slate-50 p-2 rounded-md cursor-pointer">
-        <Image src="/share.png" alt="Share" width={16} height={16} />
+      <div className="flex items-center gap-4 bg-slate-50 p-2 rounded-md">
+        <Image
+          src="/share.png"
+          alt="Share"
+          width={16}
+          height={16}
+          className="cursor-pointer"
+        />
         <span className="text-gray-300">|</span>
-        <span className="text-gray-500">Share</span>
+        <span className="text-gray-500">
+          0<span className="hidden md:inline ml-2">Shares</span>
+        </span>
       </div>
     </div>
   );
