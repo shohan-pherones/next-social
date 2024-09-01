@@ -2,6 +2,7 @@ import Image from "next/image";
 import Comments from "./Comments";
 import { Post as PostType, User } from "@prisma/client";
 import Link from "next/link";
+import PostInterations from "./PostInterations";
 
 type FeedPostType = PostType & { user: User } & {
   likes: [{ userId: string }];
@@ -53,44 +54,11 @@ const Post = ({ post }: { post: FeedPostType }) => {
         <p>{post.desc}</p>
       </div>
       {/* INTERACTIONS */}
-      <div className="flex items-center justify-between text-sm my-4">
-        <div className="flex gap-8">
-          {/* LIKE */}
-          <div className="flex items-center gap-4 bg-slate-50 p-2 rounded-md">
-            <Image
-              src="/like.png"
-              alt="Like"
-              width={16}
-              height={16}
-              className="cursor-pointer"
-            />
-            <span className="text-gray-300">|</span>
-            <span className="text-gray-500">
-              100<span className="hidden md:inline ml-2">Likes</span>
-            </span>
-          </div>
-          {/* COMMENT */}
-          <div className="flex items-center gap-4 bg-slate-50 p-2 rounded-md">
-            <Image
-              src="/comment.png"
-              alt="Comment"
-              width={16}
-              height={16}
-              className="cursor-pointer"
-            />
-            <span className="text-gray-300">|</span>
-            <span className="text-gray-500">
-              15<span className="hidden md:inline ml-2">Comments</span>
-            </span>
-          </div>
-        </div>
-        {/* SHARE */}
-        <div className="flex items-center gap-4 bg-slate-50 p-2 rounded-md cursor-pointer">
-          <Image src="/share.png" alt="Share" width={16} height={16} />
-          <span className="text-gray-300">|</span>
-          <span className="text-gray-500">Share</span>
-        </div>
-      </div>
+      <PostInterations
+        postId={post.id}
+        likes={post.likes.map((like) => like.userId)}
+        commentNumber={post._count.comments}
+      />
       <Comments />
     </div>
   );
