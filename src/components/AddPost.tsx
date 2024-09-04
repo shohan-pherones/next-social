@@ -13,6 +13,8 @@ const AddPost = () => {
   const [desc, setDesc] = useState("");
   const [img, setImg] = useState<any>("");
 
+  if (!user) return null;
+
   if (!isLoaded) {
     return <LoaderCircle className="w-5 h-5 text-blue-500 animate-spin" />;
   }

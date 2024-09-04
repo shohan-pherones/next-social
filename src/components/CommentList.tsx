@@ -37,7 +37,7 @@ const CommentList = ({
       user: {
         id: user.id,
         username: "Commenting...",
-        avatar: user.imageUrl || "noAvatar.png",
+        avatar: user.imageUrl || "/noAvatar.png",
         cover: "",
         description: "",
         name: "",

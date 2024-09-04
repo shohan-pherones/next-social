@@ -1,120 +1,42 @@
-import Image from "next/image";
+import prisma from "@/lib/client";
+import { auth } from "@clerk/nextjs/server";
+import StoryList from "./StoryList";
 
-const Stories = () => {
+const Stories = async () => {
+  const { userId: currentUserId } = auth();
+
+  if (!currentUserId) {
+    return null;
+  }
+
+  const stories = await prisma.story.findMany({
+    where: {
+      expiresAt: {
+        gt: new Date(),
+      },
+      OR: [
+        {
+          user: {
+            followers: {
+              some: {
+                followingId: currentUserId,
+              },
+            },
+          },
+        },
+        {
+          userId: currentUserId,
+        },
+      ],
+    },
+    include: {
+      user: true,
+    },
+  });
+
   return (
     <div className="p-4 bg-white rounded-lg shadow overflow-scroll text-xs no-scrollbar">
-      <div className="flex gap-8 w-max">
-        {/* STORY */}
-        <div className="flex flex-col items-center gap-2 cursor-pointer">
-          <Image
-            src="https://images.pexels.com/photos/27663337/pexels-photo-27663337/free-photo-of-a-woman-in-a-pink-dress-walking-on-the-beach.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
-            alt=""
-            className="w-20 h-20 rounded-full ring-4 ring-blue-400 object-cover"
-            width={80}
-            height={80}
-          />
-          <span className="font-medium">Jennie</span>
-        </div>
-        {/* STORY */}
-        <div className="flex flex-col items-center gap-2 cursor-pointer">
-          <Image
-            src="https://images.pexels.com/photos/27663337/pexels-photo-27663337/free-photo-of-a-woman-in-a-pink-dress-walking-on-the-beach.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
-            alt=""
-            className="w-20 h-20 rounded-full ring-4 ring-blue-400 object-cover"
-            width={80}
-            height={80}
-          />
-          <span className="font-medium">Jennie</span>
-        </div>
-        {/* STORY */}
-        <div className="flex flex-col items-center gap-2 cursor-pointer">
-          <Image
-            src="https://images.pexels.com/photos/27663337/pexels-photo-27663337/free-photo-of-a-woman-in-a-pink-dress-walking-on-the-beach.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
-            alt=""
-            className="w-20 h-20 rounded-full ring-4 ring-blue-400 object-cover"
-            width={80}
-            height={80}
-          />
-          <span className="font-medium">Jennie</span>
-        </div>
-        {/* STORY */}
-        <div className="flex flex-col items-center gap-2 cursor-pointer">
-          <Image
-            src="https://images.pexels.com/photos/27663337/pexels-photo-27663337/free-photo-of-a-woman-in-a-pink-dress-walking-on-the-beach.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
-            alt=""
-            className="w-20 h-20 rounded-full ring-4 ring-blue-400 object-cover"
-            width={80}
-            height={80}
-          />
-          <span className="font-medium">Jennie</span>
-        </div>
-        {/* STORY */}
-        <div className="flex flex-col items-center gap-2 cursor-pointer">
-          <Image
-            src="https://images.pexels.com/photos/27663337/pexels-photo-27663337/free-photo-of-a-woman-in-a-pink-dress-walking-on-the-beach.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
-            alt=""
-            className="w-20 h-20 rounded-full ring-4 ring-blue-400 object-cover"
-            width={80}
-            height={80}
-          />
-          <span className="font-medium">Jennie</span>
-        </div>
-        {/* STORY */}
-        <div className="flex flex-col items-center gap-2 cursor-pointer">
-          <Image
-            src="https://images.pexels.com/photos/27663337/pexels-photo-27663337/free-photo-of-a-woman-in-a-pink-dress-walking-on-the-beach.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
-            alt=""
-            className="w-20 h-20 rounded-full ring-4 ring-blue-400 object-cover"
-            width={80}
-            height={80}
-          />
-          <span className="font-medium">Jennie</span>
-        </div>
-        {/* STORY */}
-        <div className="flex flex-col items-center gap-2 cursor-pointer">
-          <Image
-            src="https://images.pexels.com/photos/27663337/pexels-photo-27663337/free-photo-of-a-woman-in-a-pink-dress-walking-on-the-beach.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
-            alt=""
-            className="w-20 h-20 rounded-full ring-4 ring-blue-400 object-cover"
-            width={80}
-            height={80}
-          />
-          <span className="font-medium">Jennie</span>
-        </div>
-        {/* STORY */}
-        <div className="flex flex-col items-center gap-2 cursor-pointer">
-          <Image
-            src="https://images.pexels.com/photos/27663337/pexels-photo-27663337/free-photo-of-a-woman-in-a-pink-dress-walking-on-the-beach.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
-            alt=""
-            className="w-20 h-20 rounded-full ring-4 ring-blue-400 object-cover"
-            width={80}
-            height={80}
-          />
-          <span className="font-medium">Jennie</span>
-        </div>
-        {/* STORY */}
-        <div className="flex flex-col items-center gap-2 cursor-pointer">
-          <Image
-            src="https://images.pexels.com/photos/27663337/pexels-photo-27663337/free-photo-of-a-woman-in-a-pink-dress-walking-on-the-beach.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
-            alt=""
-            className="w-20 h-20 rounded-full ring-4 ring-blue-400 object-cover"
-            width={80}
-            height={80}
-          />
-          <span className="font-medium">Jennie</span>
-        </div>
-        {/* STORY */}
-        <div className="flex flex-col items-center gap-2 cursor-pointer">
-          <Image
-            src="https://images.pexels.com/photos/27663337/pexels-photo-27663337/free-photo-of-a-woman-in-a-pink-dress-walking-on-the-beach.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
-            alt=""
-            className="w-20 h-20 rounded-full ring-4 ring-blue-400 object-cover"
-            width={80}
-            height={80}
-          />
-          <span className="font-medium">Jennie</span>
-        </div>
-      </div>
+      <StoryList stories={stories} userId={currentUserId} />
     </div>
   );
 };

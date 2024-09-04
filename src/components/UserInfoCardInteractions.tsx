@@ -75,8 +75,8 @@ const UserInfoCardInteractions = ({
           {optimisticState.following
             ? "Following"
             : optimisticState.friendRequestSent
-            ? "Friend Request Sent"
-            : "Add Friend"}
+            ? "Follow Request Sent"
+            : "Follow"}
         </button>
       </form>
       <form action={block}>
