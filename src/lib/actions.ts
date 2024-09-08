@@ -340,3 +340,25 @@ export const addStory = async (img: string) => {
     throw new Error("Something went wrong");
   }
 };
+
+export const deletePost = async (postId: number) => {
+  const { userId: currentUserId } = auth();
+
+  if (!currentUserId) {
+    throw new Error("Unauthorized");
+  }
+
+  try {
+    await prisma.post.delete({
+      where: {
+        id: postId,
+        userId: currentUserId,
+      },
+    });
+
+    revalidatePath("/");
+  } catch (error) {
+    console.log(error);
+    throw new Error("Something went wrong");
+  }
+};

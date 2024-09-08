@@ -3,6 +3,9 @@ import Comments from "./Comments";
 import { Post as PostType, User } from "@prisma/client";
 import Link from "next/link";
 import PostInterations from "./PostInterations";
+import { Suspense } from "react";
+import { LoaderCircle } from "lucide-react";
+import PostInfo from "./PostInfo";
 
 type FeedPostType = PostType & { user: User } & {
   likes: [{ userId: string }];
@@ -31,13 +34,7 @@ const Post = ({ post }: { post: FeedPostType }) => {
             </span>
           </Link>
         </div>
-        <Image
-          src="/more.png"
-          alt="More"
-          width={16}
-          height={16}
-          className="cursor-pointer"
-        />
+        <PostInfo postId={post.id} />
       </div>
       {/* DESC. */}
       <div className="flex flex-col gap-4">
@@ -54,12 +51,24 @@ const Post = ({ post }: { post: FeedPostType }) => {
         <p>{post.desc}</p>
       </div>
       {/* INTERACTIONS */}
-      <PostInterations
-        postId={post.id}
-        likes={post.likes.map((like) => like.userId)}
-        commentNumber={post._count.comments}
-      />
-      <Comments postId={post.id} />
+      <Suspense
+        fallback={
+          <LoaderCircle className="w-5 h-5 text-blue-500 animate-spin" />
+        }
+      >
+        <PostInterations
+          postId={post.id}
+          likes={post.likes.map((like) => like.userId)}
+          commentNumber={post._count.comments}
+        />
+      </Suspense>
+      <Suspense
+        fallback={
+          <LoaderCircle className="w-5 h-5 text-blue-500 animate-spin" />
+        }
+      >
+        <Comments postId={post.id} />
+      </Suspense>
     </div>
   );
 };
